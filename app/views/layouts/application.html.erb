@@ -1,14 +1,16 @@
+<%# Rails全体のレイアウトファイル %>
 <!DOCTYPE html>
 <html>
   <head>
+    <%# :titleはコントローラーに対応している個々のビューで定義している %>
     <title><%= yield(:title) %> | Ruby on Rails Tutorial Sample App</title>
     <%= csrf_meta_tags %>
-
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
+    <%# 個々のビューの内容を表示する %>
     <%= yield %>
   </body>
 </html>
