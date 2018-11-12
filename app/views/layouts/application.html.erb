@@ -3,7 +3,8 @@
 <html>
   <head>
     <%# :titleはコントローラーに対応している個々のビューで定義している %>
-    <title><%= yield(:title) %> | Ruby on Rails Tutorial Sample App</title>
+    <%# full_titleはカスタムヘルパーで、helpers/application_helper.rbに定義されている %>
+    <title><%= full_title(yield(:title)) %></title>
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
