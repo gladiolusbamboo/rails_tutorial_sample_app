@@ -15,6 +15,8 @@ class StaticPagesControllerTest < ActionDispatch::IntegrationTest
   # static_pagesコントローラーのhomeアクションに対応するURLにアクセスしたときに
   # レスポンスが返ってくるか
   # <title>タグの内容は"Home | Ruby on Rails Tutorial Sample App"であるか
+  # テストの本体はブロックでできている
+  # testメソッドは文字列とブロックを引数にとっている
   test "should get home" do
     get static_pages_home_url
     assert_response :success

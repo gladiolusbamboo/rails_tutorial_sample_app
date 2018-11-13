@@ -6,6 +6,8 @@
     <%# full_titleはカスタムヘルパーで、helpers/application_helper.rbに定義されている %>
     <title><%= full_title(yield(:title)) %></title>
     <%= csrf_meta_tags %>
+    <%# stylesheet_link_tag というRailsの組み込みメソッドを呼び出している %>
+    <%# 'application'という文字列とmedia:以下のハッシュの２変数を渡している %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
