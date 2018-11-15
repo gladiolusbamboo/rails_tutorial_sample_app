@@ -3,14 +3,21 @@
 <html>
   <head>
     <%# :titleはコントローラーに対応している個々のビューで定義している %>
-    <title><%= yield(:title) %> | Ruby on Rails Tutorial Sample App</title>
-    <%= csrf_meta_tags %>
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <title><%= full_title(yield(:title)) %></title>
+    <%= render 'layouts/rails_default' %>
+    <%# app/views/layouts/_shim.html.erb ファイルを評価し挿入する %>
+    <%# アンダースコアでパーシャルであることを示す %>
+    <%= render 'layouts/shim' %>
   </head>
 
   <body>
+    <%# app/views/layouts/_header.html.erb ファイルを評価し挿入する %>
+    <%= render 'layouts/header' %>
     <%# 個々のビューの内容を表示する %>
-    <%= yield %>
+    <div class="container">
+      <%= yield %>
+      <%# app/views/layouts/_footer.html.erb ファイルを評価し挿入する %>
+      <%= render 'layouts/footer' %>
+    </div>
   </body>
 </html>
