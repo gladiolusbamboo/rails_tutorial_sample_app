@@ -20,4 +20,14 @@ class User < ApplicationRecord
     # emailは重複していないか
     # 大文字小文字の違いは別のemailとはみなさない
     uniqueness: { case_sensitive: false }
+    
+  # Railsメソッド。セキュアなパスワードを実装する
+  # passwordおよびpassword_confirmation属性が必要
+  has_secure_password
+  
+  validates :password, 
+    # password属性は存在していなければならない
+    presence: true, 
+    # password属性は６文字以上でなければならない
+    length: { minimum: 6 }
 end
