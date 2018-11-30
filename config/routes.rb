@@ -23,4 +23,8 @@ Rails.application.routes.draw do
   
   # ↓の指定でsignup_path,signup_urlなどの名前付きルートが使用できる
   get  '/signup', to: 'users#new'
+  
+  # resourcesで多数の名前付きルートが使えるようになる
+  # RESTfulなUsersリソースで必要となるすべてのアクションが利用できるようになる
+  resources :users
 end

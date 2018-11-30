@@ -4,6 +4,14 @@
 /* mixins, variables, etc. */
 $gray-medium-light: #eaeaea;
 
+/* mixin機能を利用する */
+/* @include box_sizing; で呼び出すことができる */
+@mixin box_sizing {
+  -moz-box-sizing:    border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing:         border-box;
+}
+
 /* universal */
 body {
   padding-top: 60px;
@@ -98,3 +106,13 @@ footer {
   }
 }
 
+/* miscellaneous */
+/* @mixin box_sizing */
+/* で定義したスタイルを呼び出す */
+.debug_dump {
+  clear: both;
+  float: left;
+  width: 100%;
+  margin-top: 45px;
+  @include box_sizing;
+}
