@@ -1,3 +1,32 @@
+<%# 順番が気持ち悪いが:titleに@user.nameを指定し、layouts/application.html.erb内で使用している %>
 <% provide(:title, 'Sign up') %>
 <h1>Sign up</h1>
-<p>This will be a signup page for new users.</p>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%# /usersに対してpostで送信するフォーム %>
+    <%# <form class="new_user" id="new_user" action="/users" accept-charset="UTF-8" method="post">
+    <%# <input name="utf8" type="hidden" value="✓"><input type="hidden" name="authenticity_token" value="qxxxxxxxxxx">  %>
+    <%# @userはコントローラーnewされているので新規入力フォームが生成される %>
+    <%= form_for(@user) do |f| %>
+      <%# <label for="user_name">Name</label> %>
+      <%# f.labelなどはメソッドを呼び出している %>
+      <%= f.label :name %>
+      <%# <input type="text" name="user[name]" id="user_name"> %>
+      <%= f.text_field :name %>
+      <%# <label for="user_email">Email</label> %>
+      <%= f.label :email %>
+      <%# <input type="email" name="user[email]" id="user_email"> %>
+      <%= f.email_field :email %>
+      <%# <label for="user_password">Password</label> %>
+      <%= f.label :password %>
+      <%# <input type="password" name="user[password]" id="user_password"> %>
+      <%= f.password_field :password %>
+      <%# <label for="user_password_confirmation">Confirmation</label> %>
+      <%= f.label :password_confirmation, "Confirmation" %>
+      <%# <input type="password" name="user[password_confirmation]" id="user_password_confirmation"> %>
+      <%= f.password_field :password_confirmation %>
+      <%# <input type="submit" name="commit" value="Create my account" class="btn btn-primary" data-disable-with="Create my account"> %>
+      <%= f.submit "Create my account", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

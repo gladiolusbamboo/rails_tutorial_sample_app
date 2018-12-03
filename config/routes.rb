@@ -26,5 +26,6 @@ Rails.application.routes.draw do
   
   # resourcesで多数の名前付きルートが使えるようになる
   # RESTfulなUsersリソースで必要となるすべてのアクションが利用できるようになる
+  # (index,show,new,create,edit,update,destroy)
   resources :users
 end
