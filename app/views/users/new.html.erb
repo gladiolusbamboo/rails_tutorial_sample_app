@@ -6,27 +6,43 @@
     <%# /usersに対してpostで送信するフォーム %>
     <%# <form class="new_user" id="new_user" action="/users" accept-charset="UTF-8" method="post">
     <%# <input name="utf8" type="hidden" value="✓"><input type="hidden" name="authenticity_token" value="qxxxxxxxxxx">  %>
-    <%# @userはコントローラーnewされているので新規入力フォームが生成される %>
+    <%# @userはコントローラーでnewされているので新規入力フォームが生成される %>
     <%= form_for(@user) do |f| %>
+      <%# views/shared/_error_messagesを描画する %>
+      <%= render 'shared/error_messages' %>
+      
       <%# <label for="user_name">Name</label> %>
       <%# f.labelなどはメソッドを呼び出している %>
       <%= f.label :name %>
-      <%# <input type="text" name="user[name]" id="user_name"> %>
-      <%= f.text_field :name %>
+      <%# <input type="text" name="user[name]" id="user_name" class="form_control"> %>
+      <%= f.text_field :name, class: 'form-control' %>
+      
       <%# <label for="user_email">Email</label> %>
       <%= f.label :email %>
-      <%# <input type="email" name="user[email]" id="user_email"> %>
-      <%= f.email_field :email %>
+      <%# <input type="email" name="user[email]" id="user_email" class="form_control"> %>
+      <%= f.email_field :email, class: 'form-control'  %>
+      
       <%# <label for="user_password">Password</label> %>
       <%= f.label :password %>
-      <%# <input type="password" name="user[password]" id="user_password"> %>
-      <%= f.password_field :password %>
+      <%# <input type="password" name="user[password]" id="user_password" class="form_control"> %>
+      <%= f.password_field :password, class: 'form-control'  %>
+      
       <%# <label for="user_password_confirmation">Confirmation</label> %>
       <%= f.label :password_confirmation, "Confirmation" %>
-      <%# <input type="password" name="user[password_confirmation]" id="user_password_confirmation"> %>
-      <%= f.password_field :password_confirmation %>
+      <%# <input type="password" name="user[password_confirmation]" id="user_password_confirmation" class="form_control"> %>
+      <%= f.password_field :password_confirmation, class: 'form-control' %>
+
       <%# <input type="submit" name="commit" value="Create my account" class="btn btn-primary" data-disable-with="Create my account"> %>
       <%= f.submit "Create my account", class: "btn btn-primary" %>
     <% end %>
+    <%# 以下のようなハッシュを/usersにPOSTで送信する %>
+    <%#
+    {"utf8"=>"✓",
+     "authenticity_token"=>"XXXXXXXXXX==",
+     "user"=>{"name"=>"yjkym", 
+     "email"=>"y@jk.ym", 
+     "password"=>"[FILTERED]", 
+     "password_confirmation"=>"[FILTERED]"},
+     "commit"=>"Create my account"} %>
   </div>
 </div>

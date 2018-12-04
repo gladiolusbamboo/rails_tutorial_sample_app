@@ -29,5 +29,5 @@ class User < ApplicationRecord
     # password属性は存在していなければならない
     presence: true, 
     # password属性は６文字以上でなければならない
-    length: { minimum: 6 }
+    length: { minimum: 5 }
 end

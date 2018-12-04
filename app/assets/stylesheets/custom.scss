@@ -162,3 +162,20 @@ input, textarea, select, .uneditable-input {
 input {
   height: auto !important;
 }
+
+#error_explanation {
+  color: red;
+  ul {
+    color: red;
+    margin: 0 0 30px 0;
+  }
+}
+
+.field_with_errors {
+  // Bootstrapの.has-errorのスタイルを継承
+  @extend .has-error;
+  .form-control {
+    // これもBootstrap内で定義されているようだ
+    color: $state-danger-text;
+  }
+}
