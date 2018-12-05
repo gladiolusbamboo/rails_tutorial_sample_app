@@ -23,6 +23,9 @@ Rails.application.routes.draw do
   
   # ↓の指定でsignup_path,signup_urlなどの名前付きルートが使用できる
   get  '/signup', to: 'users#new'
+  # /signupにpostでユーザーデータを送ると
+  # usersコントローラーのcreateメソッドが実行される
+  post '/signup',  to: 'users#create'
   
   # resourcesで多数の名前付きルートが使えるようになる
   # RESTfulなUsersリソースで必要となるすべてのアクションが利用できるようになる

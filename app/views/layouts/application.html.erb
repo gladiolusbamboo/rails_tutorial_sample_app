@@ -15,6 +15,13 @@
     <%= render 'layouts/header' %>
     <%# 個々のビューの内容を表示する %>
     <div class="container">
+      <%# リダイレクト元でflashが登録されている場合は %>
+      <%# 適切なスタイルでメッセージを表示する %>
+      <% flash.each do |message_type, message| %>
+        <%# Railsのヘルパーを使って以下のようなHTMLを出力する %>
+        <%# <div class="alert alert-success">Welcome to the Sample App!</div> %>
+        <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
+      <% end %>
       <%= yield %>
       <%# app/views/layouts/_footer.html.erb ファイルを評価し挿入する %>
       <%= render 'layouts/footer' %>

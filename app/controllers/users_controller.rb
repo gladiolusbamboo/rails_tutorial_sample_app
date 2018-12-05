@@ -25,8 +25,13 @@ class UsersController < ApplicationController
     # Strong Parametersというテクニックを使う
     @user = User.new(user_params)
     if @user.save
-      # 保存の成功をここで扱う。
+      # リダイレクト先で表示するメッセージを設定
+      flash[:success] = "Welcome to the Sample App!"
+      # 登録に成功したユーザーデータを表示する
+      redirect_to user_url(@user)
     else
+      # ユーザーデータ保存に失敗した場合、
+      # new.html.erbを表示する（エラーメッセージ含む）
       render 'new'
     end
   end
