@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  get 'users/new'
-
   # /にGETでアクセスするとstatic_pagesコントローラーのhomeメソッドを実行し、
   # 対応するViewで描画する
   root 'static_pages#home'
@@ -26,6 +24,17 @@ Rails.application.routes.draw do
   # /signupにpostでユーザーデータを送ると
   # usersコントローラーのcreateメソッドが実行される
   post '/signup',  to: 'users#create'
+  
+  # /loginにGETでアクセスすると
+  # sessionコントローラーのnewメソッドが実行される
+  get    '/login',   to: 'sessions#new'
+  # /loginにPOSTでデータを送信すると
+  # sessionsコントローラーのcreateメソッドが実行される
+  post   '/login',   to: 'sessions#create'
+  # /logoutにDELETEでアクセスすると
+  # sessionsコントローラーのdestroyメソッドが実行される
+  # （内部的にはPOSTらしい）
+  delete '/logout',  to: 'sessions#destroy'
   
   # resourcesで多数の名前付きルートが使えるようになる
   # RESTfulなUsersリソースで必要となるすべてのアクションが利用できるようになる
