@@ -26,5 +26,10 @@ class SessionsController < ApplicationController
   # sessionsコントローラーのdestroyメソッドが実行される
   # （内部的にはPOSTらしい）
   def destroy
+    # /sample_app/app/helpers/sessions_helper.rb
+    # で定義されているヘルパーメソッド
+    log_out
+    # root_urlにリダイレクトされるか
+    redirect_to root_url
   end
 end

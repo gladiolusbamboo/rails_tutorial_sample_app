@@ -46,5 +46,9 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     assert_template 'users/show'
     # flashにメッセージが設定されているか
     assert_not flash.empty?
+    # サインアップと同時にログインが行われているか
+    # is_logged_in?は/sample_app/test/test_helper.rbに
+    # 定義されているテスト用メソッド
+    assert is_logged_in?
   end
 end

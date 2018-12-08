@@ -25,6 +25,8 @@ class UsersController < ApplicationController
     # Strong Parametersというテクニックを使う
     @user = User.new(user_params)
     if @user.save
+      # 登録と同時にログインさせる
+      log_in @user
       # リダイレクト先で表示するメッセージを設定
       flash[:success] = "Welcome to the Sample App!"
       # 登録に成功したユーザーデータを表示する
@@ -44,6 +46,6 @@ class UsersController < ApplicationController
       # {"name"=>"", "email"=>"", 
       #  "password"=>"", "password_confirmation"=>""} 
       params.require(:user).permit(:name, :email, :password,
-                                   :password_confirmation)
+                                  :password_confirmation)
     end
 end

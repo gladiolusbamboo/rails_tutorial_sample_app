@@ -1,0 +1,5 @@
+# password digestはUserモデル内のクラスメソッドで生成する
+michael:
+  name: Michael Example
+  email: michael@example.com
+  password_digest: <%= User.digest('password') %>

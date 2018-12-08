@@ -30,4 +30,12 @@ class User < ApplicationRecord
     presence: true, 
     # password属性は６文字以上でなければならない
     length: { minimum: 6 }
+  
+  # 渡された文字列のハッシュ値を返す
+  # クラスメソッドとして定義する
+  def User.digest(string)
+    cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
+                                                  BCrypt::Engine.cost
+    BCrypt::Password.create(string, cost: cost)
+  end
 end
