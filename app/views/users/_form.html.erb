@@ -1,0 +1,34 @@
+<%# <form class="new_user" id="new_user" action="/signup" accept-charset="UTF-8" method="post"> %>
+<%# <input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="xxxxxxxxxx==" /> %>
+<%# @userが新規の場合は新規入力フォーム、 %>
+<%# @userが既存のものの場合は編集フォームが生成される %>
+<%# 新規の場合は/signupにPOSTされ、 %>
+<%# 編集の場合は/users/:idにPATCHされる %>
+<%= form_for(@user, url: yield(:output_path)) do |f| %>
+  <%# views/shared/_error_messagesを描画する %>
+  <%= render 'shared/error_messages' %>
+  
+  <%# <label for="user_name">Name</label> %>
+  <%# f.labelなどはメソッドを呼び出している %>
+  <%= f.label :name %>
+  <%# <input type="text" name="user[name]" id="user_name" class="form_control"> %>
+  <%= f.text_field :name, class: 'form-control' %>
+  
+  <%# <label for="user_email">Email</label> %>
+  <%= f.label :email %>
+  <%# <input type="email" name="user[email]" id="user_email" class="form_control"> %>
+  <%= f.email_field :email, class: 'form-control'  %>
+  
+  <%# <label for="user_password">Password</label> %>
+  <%= f.label :password %>
+  <%# <input type="password" name="user[password]" id="user_password" class="form_control"> %>
+  <%= f.password_field :password, class: 'form-control'  %>
+  
+  <%# <label for="user_password_confirmation">Confirmation</label> %>
+  <%= f.label :password_confirmation, "Confirmation" %>
+  <%# <input type="password" name="user[password_confirmation]" id="user_password_confirmation" class="form_control"> %>
+  <%= f.password_field :password_confirmation, class: 'form-control' %>
+
+  <%# <input type="submit" name="commit" value="Create my account" class="btn btn-primary" data-disable-with="Create my account"> %>
+  <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+<% end %>

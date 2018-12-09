@@ -1,0 +1,30 @@
+<%# 順番が気持ち悪いが:titleに"Edit user"を指定し、layouts/application.html.erb内で使用している %>
+<% provide(:title, "Edit user") %>
+<%# 順番が気持ち悪いが:button_textに"Save Changes"を指定し、 %>
+<%# users/_form.html.erb内で使用している %>
+<% provide(:button_text, "Save changes") %>
+<%# user_pathにPATCHアクションでユーザーデータを更新する %>
+<% provide(:output_path, user_path) %>
+<h1>Update your profile</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%# /users/1に対してpostで送信するフォーム %>
+    <%# <form class="edit_user" id="edit_user_1" action="/users/1" accept-charset="UTF-8" method="post"> %>
+    <%# <input name="utf8" type="hidden" value="&#x2713;" /> %>
+    <%# PATCHリクエストを「偽造」している（なくてもいい？） %>
+    <%# 実際には@userが既存のものであれば(new_record?メソッドで判定) %>
+    <%# PATCHアクションと判断している %>
+    <%# <input type="hidden" name="_method" value="patch" /> %>
+    <%# <input type="hidden" name="authenticity_token" value="XXXXXXXXXX==" /> %>
+
+    <%# /sample_app/app/views/users/_form.html.erbに定義したレイアウトフォーム %>
+    <%= render 'form' %>
+
+    <div class="gravatar_edit">
+      <%# ヘルパーメソッドでgravatarへのリンクを作成する %>
+      <%= gravatar_for @user %>
+      <a href="http://gravatar.com/emails" target="_blank" relationship="noopener">change</a>
+    </div>
+  </div>
+</div>

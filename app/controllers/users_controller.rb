@@ -38,6 +38,22 @@ class UsersController < ApplicationController
     end
   end
   
+  def edit
+    # ユーザーデータを取得する
+    @user = User.find(params[:id])
+  end
+  
+  # ユーザーデータ編集
+  def update
+    @user = User.find(params[:id])
+    # Strong Parametersを用いてマスアサインメント脆弱性対策をしている
+    if @user.update_attributes(user_params)
+      # 更新に成功した場合を扱う。
+    else
+      render 'edit'
+    end
+  end
+  
   private
     def user_params
       # paramsハッシュでは:user属性を必須とし、

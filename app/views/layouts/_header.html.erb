@@ -18,9 +18,10 @@
               Account <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
-              <%# current_userはヘルパーメソッド %>
+              <%# current_userはsessions_helper.rb内のヘルパーメソッド %>
               <li><%= link_to "Profile", current_user %></li>
-              <li><%= link_to "Settings", '#' %></li>
+              <%# edit_user_pathは名前付きルート %>
+              <li><%= link_to "Settings", edit_user_path(current_user) %></li>
               <%# 区切り線 %>
               <li class="divider"></li>
               <li>
