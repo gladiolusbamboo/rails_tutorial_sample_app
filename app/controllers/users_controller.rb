@@ -1,4 +1,8 @@
 class UsersController < ApplicationController
+  # :edit :updateメソッドを実行する前は
+  # :logged_in_userメソッドを実行する
+  before_action :logged_in_user, only: [:edit, :update]
+  
   def show
     @user = User.find(params[:id])
   end
@@ -36,6 +40,8 @@ class UsersController < ApplicationController
       # new.html.erbを表示する（エラーメッセージ含む）
       render 'new'
     end
+    
+    
   end
   
   def edit
@@ -48,7 +54,10 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     # Strong Parametersを用いてマスアサインメント脆弱性対策をしている
     if @user.update_attributes(user_params)
-      # 更新に成功した場合を扱う。
+      # flashに成功時メッセージを設定
+      flash[:success] = "Profile updated"
+      # ユーザーデータの表示へリダイレクトする
+      redirect_to @user
     else
       render 'edit'
     end
@@ -63,5 +72,14 @@ class UsersController < ApplicationController
       #  "password"=>"", "password_confirmation"=>""} 
       params.require(:user).permit(:name, :email, :password,
                                   :password_confirmation)
+    end
+    
+    # ログイン済みユーザーかどうか確認
+    # ログイン済みなら何も行わない
+    def logged_in_user
+      unless logged_in?
+        flash[:danger] = "Please log in."
+        redirect_to login_url
+      end
     end
 end

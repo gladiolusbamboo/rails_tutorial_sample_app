@@ -24,12 +24,15 @@ class User < ApplicationRecord
   # Railsメソッド。セキュアなパスワードを実装する
   # passwordおよびpassword_confirmation属性が必要
   has_secure_password
-  
+
   validates :password, 
     # password属性は存在していなければならない
     presence: true, 
     # password属性は６文字以上でなければならない
-    length: { minimum: 6 }
+    length: { minimum: 6 },
+    # validatesでは空のパスワードを許容するが
+    # has_secure_passwordでは許容されないので問題ない
+    allow_nil: true
   
   # 渡された文字列のハッシュ値を返す
   # クラスメソッドとして定義する

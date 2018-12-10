@@ -15,3 +15,14 @@ class ActiveSupport::TestCase
     !session[:user_id].nil?
   end
 end
+
+# 統合テストの中でだけ使用するメソッドを定義するクラス
+class ActionDispatch::IntegrationTest
+  # テストユーザーとしてログインする
+  def log_in_as(user, password: 'password', remember_me: '1')
+    # POSTで/loginにログインデータを送信する
+    post login_path, params: { session: { email: user.email,
+                                          password: password,
+                                          remember_me: remember_me } }
+  end
+end
