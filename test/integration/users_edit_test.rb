@@ -30,11 +30,16 @@ class UsersEditTest < ActionDispatch::IntegrationTest
   end
   
   # ユーザーデータ編集成功
-  test "successful edit" do
-    # ログインする
-    log_in_as(@user)
+  test "successful edit with friendly forwarding" do
+    # ログインしていない状態で
     # GETで/users/:id/editにアクセスする
     get edit_user_path(@user)
+    # その後ログインする
+    log_in_as(@user)
+    # リダイレクト先がユーザーデータの編集ページか
+    assert_redirected_to edit_user_url(@user)
+    # 実際にリダイレクトする
+    follow_redirect!
     # /sample_app/app/views/users/edit.html.erb
     # のテンプレートが適用されているか
     assert_template 'users/edit'
@@ -55,5 +60,12 @@ class UsersEditTest < ActionDispatch::IntegrationTest
     # ちゃんと変更されているか
     assert_equal name,  @user.name
     assert_equal email, @user.email
+    
+    # 再びログインする
+    log_in_as(@user)
+    # 転送先URLが初期化されているか
+    assert_equal session[:forwarding_url], nil
+
+    
   end
 end

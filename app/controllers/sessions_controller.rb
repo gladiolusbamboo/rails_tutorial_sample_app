@@ -12,7 +12,10 @@ class SessionsController < ApplicationController
     # emailに該当するuserが存在しかつパスワードが適正なら
     if user && user.authenticate(params[:session][:password])
       log_in user
-      redirect_to user
+      # sessionにリダイレクト先URLが指定されていれば
+      # そのURLに、指定されていなければ
+      # ユーサー情報ページへリダイレクトする
+      redirect_back_or user
     else
       # エラーメッセージを作成する
       # flash.nowを使うことで現在のアクションでのみ有効になる

@@ -31,4 +31,23 @@ module SessionsHelper
     # 現在のユーザーをリセットする
     @current_user = nil
   end
+  
+  # 渡されたユーザーがログイン済みユーザーであればtrueを返す
+  def current_user?(user)
+    user == current_user
+  end
+  
+  # 記憶したURL (もしくはデフォルト値) にリダイレクト
+  def redirect_back_or(default)
+    # sessionに:forwarding_urlの値があればそのURLにリダイレクトする
+    # なければ引数のURLにリダイレクトする
+    redirect_to(session[:forwarding_url] || default)
+    # sessionから:forwarding_urlの値を削除しておく
+    session.delete(:forwarding_url)
+  end
+
+  # アクセスしようとしたURLをsessionに保存しておく
+  def store_location
+    session[:forwarding_url] = request.original_url if request.get?
+  end
 end

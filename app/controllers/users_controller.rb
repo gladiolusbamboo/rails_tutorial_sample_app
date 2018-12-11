@@ -1,7 +1,9 @@
 class UsersController < ApplicationController
   # :edit :updateメソッドを実行する前は
-  # :logged_in_userメソッドを実行する
+  # logged_in_userメソッドを実行し、ログイン済みかを確認
+  # さらにcorrect_userメソッドを実行し、正しいユーザーかを確認
   before_action :logged_in_user, only: [:edit, :update]
+  before_action :correct_user,   only: [:edit, :update]
   
   def show
     @user = User.find(params[:id])
@@ -78,8 +80,26 @@ class UsersController < ApplicationController
     # ログイン済みなら何も行わない
     def logged_in_user
       unless logged_in?
+        # ログイン後リダイレクトさせるために
+        # アクセスしようとしたURLを保存しておく
+        # /sample_app/app/helpers/sessions_helper.rb
+        # で定義されているヘルパーメソッド
+        store_location
         flash[:danger] = "Please log in."
         redirect_to login_url
       end
+    end
+    
+    # 正しいユーザーかどうか確認
+    def correct_user
+      # 編集か更新の時はparams[:id]の値をもっているので
+      # 正しいユーザーかどうかを確認できる
+      @user = User.find(params[:id])
+      # 正しいユーザーなら何も行わない
+      # 正しくないならルートへリダイレクトする
+      # current_user?メソッドは
+      # /sample_app/app/helpers/sessions_helper.rb
+      # で定義されているヘルパーメソッド
+      redirect_to(root_url) unless current_user?(@user)
     end
 end
