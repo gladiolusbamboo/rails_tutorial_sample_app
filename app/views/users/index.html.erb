@@ -1,0 +1,20 @@
+<%# すべてのユーザーを一覧で表示する %>
+<%# 順番が気持ち悪いが:titleを指定し、layouts/application.html.erb内で使用している %>
+<% provide(:title, 'All users') %>
+<h1>All users</h1>
+
+<%# ページネーションUIの表示 %>
+<%= will_paginate %>
+
+<ul class="users">
+  <% @users.each do |user| %>
+    <li>
+      <%= gravatar_for user, size: 50 %>
+      <%# 各ユーザーのプロフィールへのリンク %>
+      <%= link_to user.name, user %>
+    </li>
+  <% end %>
+</ul>
+
+<%# ページネーションUIの表示 %>
+<%= will_paginate %>

@@ -2,8 +2,13 @@ class UsersController < ApplicationController
   # :edit :updateメソッドを実行する前は
   # logged_in_userメソッドを実行し、ログイン済みかを確認
   # さらにcorrect_userメソッドを実行し、正しいユーザーかを確認
-  before_action :logged_in_user, only: [:edit, :update]
+  before_action :logged_in_user, only: [:index, :edit, :update]
   before_action :correct_user,   only: [:edit, :update]
+  
+  def index
+    # ページネーションを使用してユーザーを取得する
+    @users = User.paginate(page: params[:page])
+  end
   
   def show
     @user = User.find(params[:id])

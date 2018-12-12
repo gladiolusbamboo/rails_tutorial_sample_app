@@ -2,6 +2,12 @@ require 'test_helper'
 
 # 統合テストを行う
 class SiteLayoutTest < ActionDispatch::IntegrationTest
+  # テストの前に実行する
+  # @userにfixturesで生成したユーザーデータを設定する
+  def setup
+    @user = users(:michael)
+  end
+
   test "layout links" do
     # ルートURLにGETでアクセスしたとき
     get root_path
@@ -25,5 +31,53 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
     assert_response :success
     # <title>タグの中身はfull_title("Sign up")と同値か
     assert_select "title", full_title("Sign up")
+    
+    # help_path
+    get help_path
+    assert_response :success
+    assert_select "title", full_title("Help")
+
+    # login_path
+    get login_path
+    assert_response :success
+    assert_select "title", full_title("Log in")
+    
+    # /usersアクセステスト
+    # ログインしていない状態で/usersにアクセスしたときに
+    get users_path
+    # ログインページにリダイレクトされるか
+    assert_redirected_to login_path
+    # ログインして
+    log_in_as(@user)
+    # /usersにGETでアクセスする
+    get users_path
+    # usersコントローラーのindexレイアウトが適用されるか
+    assert_template 'users/index'
+    # ログアウトする
+    log_out
+    
+    # /users/1アクセステスト
+    # ログインしていない状態で/usersにアクセスしたときに
+    # 正しいレイアウトが適用されているか
+    get user_path @user
+    assert_response :success
+    assert_template 'users/show'
+    # ログインしても同じか
+    log_in_as(@user)
+    get user_path @user
+    assert_response :success
+    assert_template 'users/show'
+    log_out
+
+    # /users/1/editアクセステスト
+    # ログインしていない状態で/usersにアクセスしたときに
+    # 正しいレイアウトが適用されているか
+    get edit_user_path @user
+    assert_redirected_to login_path
+    log_in_as @user
+    get edit_user_path @user
+    assert_response :success
+    assert_template 'users/edit'
+    
   end
 end

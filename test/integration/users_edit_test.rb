@@ -65,7 +65,5 @@ class UsersEditTest < ActionDispatch::IntegrationTest
     log_in_as(@user)
     # 転送先URLが初期化されているか
     assert_equal session[:forwarding_url], nil
-
-    
   end
 end
