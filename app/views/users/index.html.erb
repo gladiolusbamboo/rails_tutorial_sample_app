@@ -7,13 +7,14 @@
 <%= will_paginate %>
 
 <ul class="users">
-  <% @users.each do |user| %>
-    <li>
-      <%= gravatar_for user, size: 50 %>
-      <%# 各ユーザーのプロフィールへのリンク %>
-      <%= link_to user.name, user %>
-    </li>
-  <% end %>
+  <%# @users はuserのリストと推測される %>
+  <%# 結果として、以下のコードと同じ結果となる %>
+  <%= render @users %>
+  <%# @users.each do |user| %>
+    <%# renderの引数をuserにすると %>
+    <%# _user.html.erb を参照する %>
+    <%#= render user %>
+  <%# end %>
 </ul>
 
 <%# ページネーションUIの表示 %>

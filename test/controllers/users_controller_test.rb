@@ -71,4 +71,19 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     get users_path
     assert_redirected_to login_url
   end
+  
+  # admin属性は変更できないことを確認する
+  test "should not allow the admin attribute to be edited via the web" do
+    # 管理者でないユーザーでログインする
+    log_in_as(@other_user)
+    # 管理者権限はないか
+    assert_not @other_user.admin?
+    # PATCHで管理者権限を与えようとする
+    patch user_path(@other_user), params: {
+                                  user: { password:              "password",
+                                          password_confirmation: "password",
+                                          admin: true } }
+    # 管理者権限がちゃんと制限されているか
+    assert_not @other_user.reload.admin?
+  end
 end

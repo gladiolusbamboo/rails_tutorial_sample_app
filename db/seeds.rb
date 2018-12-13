@@ -1,7 +1,8 @@
 User.create!(name:  "Example User",
              email: "example@railstutorial.org",
              password:              "foobar",
-             password_confirmation: "foobar")
+             password_confirmation: "foobar",
+             admin: true)
 
 # ダミーデータを100人分作る
 99.times do |n|

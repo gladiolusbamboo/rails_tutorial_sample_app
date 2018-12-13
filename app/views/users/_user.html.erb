@@ -1,0 +1,14 @@
+<li>
+  <%= gravatar_for user, size: 50 %>
+  <%# 各ユーザーのプロフィールへのリンク %>
+  <%= link_to user.name, user %>
+  <%# ログイン中ユーザーが管理者権限を持っており、 %>
+  <%# かつ表示しようとしているユーザーが自分自身でなければ %>
+  <%# 削除用のリンクを表示する %>
+  <% if current_user.admin? && !current_user?(user) %>
+    <%# JavaScriptを使用してDELETEリクエストを偽装している %>
+    <%# <a data-confirm="You sure?" rel="nofollow" data-method="delete" href="/users/3">delete</a> %>
+    | <%= link_to "delete", user, method: :delete,
+                                  data: { confirm: "You sure?" } %>
+  <% end %>
+</li>
