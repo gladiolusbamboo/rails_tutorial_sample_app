@@ -86,4 +86,26 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     # 管理者権限がちゃんと制限されているか
     assert_not @other_user.reload.admin?
   end
+  
+  # ログインしていないときに
+  # ユーザーを削除しようとした場合、
+  # ログインページへリダイレクトするか
+  test "should redirect destroy when not logged in" do
+    # ブロックを実行する前後でUser.countが同値か
+    assert_no_difference 'User.count' do
+      delete user_path(@user)
+    end
+    assert_redirected_to login_url
+  end
+
+  # 管理権限のないユーザーで
+  # 別のユーザーを削除しようとした場合、
+  # ログインページへリダイレクトするか
+  test "should redirect destroy when logged in as a non-admin" do
+    log_in_as(@other_user)
+    assert_no_difference 'User.count' do
+      delete user_path(@user)
+    end
+    assert_redirected_to root_url
+  end
 end
