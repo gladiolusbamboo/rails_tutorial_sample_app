@@ -40,4 +40,8 @@ Rails.application.routes.draw do
   # RESTfulなUsersリソースで必要となるすべてのアクションが利用できるようになる
   # (index,show,new,create,edit,update,destroy)
   resources :users
+  
+  # microposts POST   /microposts(.:format)     microposts#create
+  # micropost DELETE /microposts/:id(.:format) microposts#destroy
+  resources :microposts, only: [:create, :destroy]
 end

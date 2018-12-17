@@ -14,6 +14,9 @@ class UsersController < ApplicationController
   
   def show
     @user = User.find(params[:id])
+    # ユーザーに紐付いているポストを同時に表示する
+    # params[:page]がない場合は最初のページを返す
+    @microposts = @user.microposts.paginate(page: params[:page])
   end
   
   def new
@@ -92,17 +95,17 @@ class UsersController < ApplicationController
     
     # ログイン済みユーザーかどうか確認
     # ログイン済みなら何も行わない
-    def logged_in_user
-      unless logged_in?
+    # def logged_in_user
+    #  unless logged_in?
         # ログイン後リダイレクトさせるために
         # アクセスしようとしたURLを保存しておく
         # /sample_app/app/helpers/sessions_helper.rb
         # で定義されているヘルパーメソッド
-        store_location
-        flash[:danger] = "Please log in."
-        redirect_to login_url
-      end
-    end
+    #    store_location
+    #    flash[:danger] = "Please log in."
+    #    redirect_to login_url
+    #  end
+    #end
     
     # 正しいユーザーかどうか確認
     def correct_user

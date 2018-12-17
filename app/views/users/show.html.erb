@@ -10,5 +10,18 @@
       </h1>
     </section>
   </aside>
+  <div class="col-md-8">
+    <%# ユーザーがポストを投稿していれば表示 %>
+    <% if @user.microposts.any? %>
+      <%# 投稿数も表示 %>
+      <h3>Microposts (<%= @user.microposts.count %>)</h3>
+      <ol class="microposts">
+        <%# /sample_app/app/views/microposts/_micropost.html.erb %>
+        <%# を呼び出して表示 %>
+        <%= render @microposts %>
+      </ol>
+      <%= will_paginate @microposts %>
+    <% end %>
+  </div>
 </div>
     

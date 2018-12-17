@@ -4,8 +4,8 @@ class MicropostTest < ActiveSupport::TestCase
   # 適当なユーザーとポストを作成しておく
   def setup
     @user = users(:michael)
-    # このコードは慣習的に正しくない
-    @micropost = Micropost.new(content: "Lorem ipsum", user_id: @user.id)
+    # fixturesで生成したダミーのポストを紐付ける
+    @micropost = @user.microposts.build(content: "Lorem ipsum")
   end
   
   test "should be valid" do
@@ -28,5 +28,10 @@ class MicropostTest < ActiveSupport::TestCase
   test "content should be at most 140 characters" do
     @micropost.content = "a" * 141
     assert_not @micropost.valid?
+  end
+
+  # 最新の投稿が一番最初に来ているか
+  test "order should be most recent first" do
+    assert_equal microposts(:most_recent), Micropost.first
   end
 end

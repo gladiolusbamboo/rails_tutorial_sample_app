@@ -1,4 +1,8 @@
 class User < ApplicationRecord
+  # Userは多数のMicropostsを持っている
+  # Userが削除されたら紐付いているMicropostsも削除する
+  has_many :microposts, dependent: :destroy
+  
   # email保存前に小文字にする
   before_save { email.downcase! }
 

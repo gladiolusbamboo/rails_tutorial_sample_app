@@ -86,4 +86,15 @@ class UserTest < ActiveSupport::TestCase
     @user.password = @user.password_confirmation = "a" * 5
     assert_not @user.valid?
   end
+  
+  # Userが削除されたときに紐付いているMicropostsが削除されるか
+  test "associated microposts should be destroyed" do
+    @user.save
+    # userに紐付いたポストを生成する
+    @user.microposts.create!(content: "Lorem ipsum")
+    # Userを削除すると紐付いたポストも削除されるか
+    assert_difference 'Micropost.count', -1 do
+      @user.destroy
+    end
+  end
 end
