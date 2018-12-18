@@ -1,0 +1,22 @@
+<%# ポスト投稿フォームを表示するパーシャル %>
+<%# /micropostsにPOSTで送信する %>
+<%#
+<form class="new_micropost" id="new_micropost" action="/microposts" accept-charset="UTF-8" method="post">
+  <input name="utf8" type="hidden" value="✓">
+  <input type="hidden" name="authenticity_token" value="XXXXXXXXXX==">
+  <div class="field">
+    <textarea placeholder="Compose new micropost..." name="micropost[content]" id="micropost_content"></textarea>
+  </div>
+  <input type="submit" name="commit" value="Post" class="btn btn-primary" data-disable-with="Post">
+</form>
+%>
+
+<%= form_for(@micropost) do |f| %>
+  <%# /sample_app/app/views/shared/_error_messages.html.erb %>
+  <%# エラーを表示するパーシャルにMicropostモデルを投げる %>  
+  <%= render 'shared/error_messages', object: f.object %>
+  <div class="field">
+    <%= f.text_area :content, placeholder: "Compose new micropost..." %>
+  </div>
+  <%= f.submit "Post", class: "btn btn-primary" %>
+<% end %>

@@ -1,19 +1,12 @@
 <%# :titleはapplication.html.erbでページのタイトルとして使用される %>
 <% provide(:title, "Home") %>
 
-<div class="center jumbotron">
-  <h1>Welcome to the Sample App</h1>
-
-  <h2>
-    This is the home page for the
-    <a href="https://railstutorial.jp/">Ruby on Rails Tutorial</a>
-    sample application.
-  </h2>
-  <!-- 第一引数テキスト、第二引数URL、第三引数クラス指定 -->
-  <%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>
-</div>
-
-<!-- image_tagはapp/assets/images/ディレクトリ内を参照する -->
-<%= link_to image_tag("rails.png", alt: "Rails logo"),
-            'http://rubyonrails.org/' %>
-<%#= image_tag("kitten.jpg", alt: "kitten") %>
+<%# ログイン中はユーザー情報と投稿フォームを表示する %>
+<% if logged_in? %>
+  <%# /sample_app/app/views/static_pages/_login_home.html.erb %>
+  <%= render 'login_home' %>
+<%# ログインしていなければWelcomeページとサインアップボタンを表示する %>
+<% else %>
+  <%# /sample_app/app/views/static_pages/_logout_home.html.erb %>
+  <%= render 'logout_home' %>
+<% end %>

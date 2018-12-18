@@ -6,7 +6,9 @@
 <%# 編集の場合は/users/:idにPATCHされる %>
 <%= form_for(@user, url: yield(:output_path)) do |f| %>
   <%# views/shared/_error_messagesを描画する %>
-  <%= render 'shared/error_messages' %>
+  <%#= render 'shared/error_messages' %>
+  <%# エラー表示のパーシャルにはUserモデルを投げてやる必要がある %> 
+  <%= render 'shared/error_messages', object: f.object %>
   
   <%# <label for="user_name">Name</label> %>
   <%# f.labelなどはメソッドを呼び出している %>

@@ -1,0 +1,7 @@
+<%# ユーザー情報を表示するパーシャル %>
+<%= link_to gravatar_for(current_user, size: 50), current_user %>
+<h1><%= current_user.name %></h1>
+<%# ユーザープロフィールへのリンク %>
+<span><%= link_to "view my profile", current_user %></span>
+<%# 投稿数の表示 %>
+<span><%= pluralize(current_user.microposts.count, "micropost") %></span>

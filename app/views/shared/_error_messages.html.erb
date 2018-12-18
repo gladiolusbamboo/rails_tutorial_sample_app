@@ -1,13 +1,13 @@
 <%# エラーがあるときだけ内部のコードが実行される %>
-<% if @user.errors.any? %>
+<% if object.errors.any? %>
   <div id="error_explanation">
     <div class="alert alert-danger">
       <%# pluralizeで適宜複数形にする %>
-      The form contains <%= pluralize(@user.errors.count, "error") %>.
+      The form contains <%= pluralize(object.errors.count, "error") %>.
     </div>
     <ul>
     <%# エラーがあればそれぞれメッセージをリスト形式で表示する %>
-    <% @user.errors.full_messages.each do |msg| %>
+    <% object.errors.full_messages.each do |msg| %>
       <li><%= msg %></li>
     <% end %>
     </ul>
