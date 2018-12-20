@@ -9,4 +9,10 @@
       <%= render 'shared/micropost_form' %>
     </section>
   </aside>
+  <%# これまで投稿したポストを表示する %>
+  <div class="col-md-8">
+    <h3>Micropost Feed</h3>
+    <%# /sample_app/app/views/shared/_feed.html.erb %>
+    <%= render 'shared/feed' %>
+  </div>
 </div>

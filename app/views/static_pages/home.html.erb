@@ -4,9 +4,9 @@
 <%# ログイン中はユーザー情報と投稿フォームを表示する %>
 <% if logged_in? %>
   <%# /sample_app/app/views/static_pages/_login_home.html.erb %>
-  <%= render 'login_home' %>
+  <%= render 'static_pages/login_home' %>
 <%# ログインしていなければWelcomeページとサインアップボタンを表示する %>
 <% else %>
   <%# /sample_app/app/views/static_pages/_logout_home.html.erb %>
-  <%= render 'logout_home' %>
+  <%= render 'static_pages/logout_home' %>
 <% end %>

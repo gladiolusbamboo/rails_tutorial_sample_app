@@ -19,4 +19,22 @@
     <%= f.text_area :content, placeholder: "Compose new micropost..." %>
   </div>
   <%= f.submit "Post", class: "btn btn-primary" %>
+  <%# ファイルアップロード用 %>
+  <span class="picture">
+    <%# <input accept="image/jpeg,image/gif,image/png" type="file" name="micropost[picture]" id="micropost_picture"> %>
+    <%# accept属性でサポートされている拡張子をブラウザ経由で知らせる %>
+    <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
+  </span>
 <% end %>
+
+<%# 画像のアップロードフォームを監視し %>
+<%# サイズをチェックしている %>
+<script type="text/javascript">
+  $('#micropost_picture').bind('change', function() {
+    var size_in_megabytes = this.files[0].size/1024/1024;
+    if (size_in_megabytes > 5) {
+      alert('Maximum file size is 5MB. Please choose a smaller file.');
+    }
+  });
+</script>
+
