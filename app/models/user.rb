@@ -2,7 +2,14 @@ class User < ApplicationRecord
   # Userは多数のMicropostsを持っている
   # Userが削除されたら紐付いているMicropostsも削除する
   has_many :microposts, dependent: :destroy
-  
+  # Userは多数の"フォロー関係"を持っている
+  # フォロー関係モデルはRelationshipクラスであらわされる
+  # フォロー相手は外部キーfollower_idで参照される
+  # ユーザーモデルが削除されると"フォロー関係"も破棄される
+  has_many :active_relationships, class_name:  "Relationship",
+                                  foreign_key: "follower_id",
+                                  dependent:   :destroy
+                                  
   # email保存前に小文字にする
   before_save { email.downcase! }
 
