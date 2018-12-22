@@ -2,14 +2,33 @@ class User < ApplicationRecord
   # Userは多数のMicropostsを持っている
   # Userが削除されたら紐付いているMicropostsも削除する
   has_many :microposts, dependent: :destroy
-  # Userは多数の"フォロー関係"を持っている
-  # フォロー関係モデルはRelationshipクラスであらわされる
-  # フォロー相手は外部キーfollower_idで参照される
-  # ユーザーモデルが削除されると"フォロー関係"も破棄される
+  
+  # Userは多数の"フォローしている関係"を持っている
+  # フォローしている関係モデルはRelationshipクラスであらわされる
+  # follower_idが外部キーとなってユーザーモデルとつながっている
+  # ユーザーモデルが削除されると"フォローしている関係"も破棄される
   has_many :active_relationships, class_name:  "Relationship",
                                   foreign_key: "follower_id",
                                   dependent:   :destroy
+
+  # UserはActiveRelationship（フォローしている関係）を通じて
+  # 多数の「フォロー相手」を持っている
+  # 「フォロー相手」はfollowed_idでつながっている
+  has_many :following, through: :active_relationships, source: :followed
                                   
+  # Userは多数の"フォローされている関係"を持っている
+  # フォローされている関係モデルはRelationshipクラスであらわされる
+  # followed_idが外部キーとなってユーザーモデルとつながっている
+  # ユーザーモデルが削除されると"フォローされている関係"も破棄される
+  has_many :passive_relationships, class_name:  "Relationship",
+                                   foreign_key: "followed_id",
+                                   dependent:   :destroy
+                                   
+  # UserはPassiveRelationship（フォローされている関係）を通じて
+  # 多数の「フォローされている相手」を持っている
+  # 「フォローされている相手」はfollower_idでつながっている
+  has_many :followers, through: :passive_relationships, source: :follower                                   
+  
   # email保存前に小文字にする
   before_save { email.downcase! }
 
@@ -58,5 +77,20 @@ class User < ApplicationRecord
   # ユーザーが投稿したすべてのMicropostを返す
   def feed
     Micropost.where("user_id = ?", id)
+  end
+  
+  # ユーザーをフォローする
+  def follow(other_user)
+    following << other_user
+  end
+
+  # ユーザーをフォロー解除する
+  def unfollow(other_user)
+    active_relationships.find_by(followed_id: other_user.id).destroy
+  end
+
+  # 現在のユーザーがフォローしてたらtrueを返す
+  def following?(other_user)
+    following.include?(other_user)
   end
 end
