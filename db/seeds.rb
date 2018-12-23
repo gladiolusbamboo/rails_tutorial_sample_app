@@ -21,3 +21,15 @@ users = User.order(:created_at).take(6)
   content = Faker::Lorem.sentence(5)
   users.each { |user| user.microposts.create!(content: content) }
 end
+
+# リレーションシップ
+users = User.all
+user  = users.first
+# カリスマたち
+following = users[2..50]
+# ファンたち
+followers = users[3..40]
+# カリスマたちをフォローする
+following.each { |followed| user.follow(followed) }
+# ファンたちにフォローされる
+followers.each { |follower| follower.follow(user) }

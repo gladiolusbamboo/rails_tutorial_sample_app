@@ -1,0 +1,16 @@
+<%# アンフォローボタン表示のパーシャル %>
+<%# 新しいRelationモデルを作成してPOSTで送信する %>
+<%#
+<form class="edit_relationship" id="edit_relationship_3" action="/relationships/3" accept-charset="UTF-8" method="post">
+  <input name="utf8" type="hidden" value="✓">
+  <input type="hidden" name="_method" value="delete">
+  <input type="hidden" name="authenticity_token" value="XXXXXXXXXX==">
+  <input type="submit" name="commit" value="Unfollow" class="btn" data-disable-with="Unfollow">
+</form>
+%>
+<%# @userは現在表示しているユーザー %>
+<%# DELETEリクエストを送信する %>
+<%= form_for(current_user.active_relationships.find_by(followed_id: @user.id),
+             html: { method: :delete }) do |f| %>
+  <%= f.submit "Unfollow", class: "btn" %>
+<% end %>

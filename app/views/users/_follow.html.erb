@@ -1,0 +1,14 @@
+<%# フォローボタン表示のパーシャル %>
+<%# 新しいRelationモデルを作成してPOSTで送信する %>
+<%#
+<form class="new_relationship" id="new_relationship" action="/relationships" accept-charset="UTF-8" method="post">
+  <input name="utf8" type="hidden" value="✓">
+  <input type="hidden" name="authenticity_token" value="XXXXXXXXXXX==">
+  <div><input type="hidden" name="followed_id" id="followed_id" value="2"></div>
+  <input type="submit" name="commit" value="Follow" class="btn btn-primary" data-disable-with="Follow">
+</form>
+%>
+<%= form_for(current_user.active_relationships.build) do |f| %>
+  <div><%= hidden_field_tag :followed_id, @user.id %></div>
+  <%= f.submit "Follow", class: "btn btn-primary" %>
+<% end %>

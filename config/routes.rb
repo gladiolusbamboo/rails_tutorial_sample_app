@@ -39,9 +39,38 @@ Rails.application.routes.draw do
   # resourcesで多数の名前付きルートが使えるようになる
   # RESTfulなUsersリソースで必要となるすべてのアクションが利用できるようになる
   # (index,show,new,create,edit,update,destroy)
-  resources :users
+  # resources :users
+  
+  # following_user GET    /users/:id/following(.:format) users#following
+  # followers_user GET    /users/:id/followers(.:format) users#followers
+  #         users GET    /users(.:format)               users#index
+  #               POST   /users(.:format)               users#create
+  #       new_user GET    /users/new(.:format)           users#new
+  #     edit_user GET    /users/:id/edit(.:format)      users#edit
+  #           user GET    /users/:id(.:format)           users#show
+  #               PATCH  /users/:id(.:format)           users#update
+  #               PUT    /users/:id(.:format)           users#update
+  #               DELETE /users/:id(.:format)           users#destroy
+  
+  # resources :usersに加えて
+  # /users/:idに対してアクションを起こすルーティングを設定できる
+  # /users/に対するアクションはcollectionメソッドで設定できる
+  resources :users do
+    member do
+      get :following, :followers
+    end
+    # collection do
+    #   get :tigers
+    # end
+  end
+  
   
   # microposts POST   /microposts(.:format)     microposts#create
   # micropost DELETE /microposts/:id(.:format) microposts#destroy
   resources :microposts, only: [:create, :destroy]
+  
+  # フォローとアンフォローに対応している
+  # relationships POST   /relationships(.:format)       relationships#create
+  # relationship DELETE /relationships/:id(.:format)   relationships#destroy
+  resources :relationships,       only: [:create, :destroy]
 end

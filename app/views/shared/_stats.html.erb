@@ -1,0 +1,19 @@
+<%# フォロー数・フォロワー数を表示する %>
+<%# ホームページの場合、ログイン中のユーザーが代入される %>
+<% @user ||= current_user %>
+<div class="stats">
+  <%# フォロー数の表示 %>
+  <a href="<%= following_user_path(@user) %>">
+    <strong id="following" class="stat">
+      <%= @user.following.count %>
+    </strong>
+    following
+  </a>
+  <%# フォロワー数の表示 %>
+  <a href="<%= followers_user_path(@user) %>">
+    <strong id="followers" class="stat">
+      <%= @user.followers.count %>
+    </strong>
+    followers
+  </a>
+</div>
