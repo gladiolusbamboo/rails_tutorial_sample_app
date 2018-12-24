@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   # :edit :updateメソッドを実行する前は
   # logged_in_userメソッドを実行し、ログイン済みかを確認
   # さらにcorrect_userメソッドを実行し、正しいユーザーかを確認
-  before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
+  before_action :logged_in_user, only: [:index, :edit, :update, :destroy, :following, :followers]
   before_action :correct_user,   only: [:edit, :update]
   # ユーザーデータ削除の前に管理者権限を確認する
   before_action :admin_user,     only: :destroy
@@ -80,6 +80,30 @@ class UsersController < ApplicationController
     User.find(params[:id]).destroy
     flash[:success] = "User deleted"
     redirect_to users_url
+  end
+  
+  # following_user GET    /users/:id/following(.:format) users#following
+  # フォロー相手一覧表示
+  def following
+    # 表示に必要なインスタンス変数を設定して
+    @title = "Following"
+    @user  = User.find(params[:id])
+    @users = @user.following.paginate(page: params[:page])
+    # /sample_app/app/views/users/show_follow.html.erb
+    # レイアウトで表示
+    render 'show_follow'
+  end
+  
+  # followers_user GET    /users/:id/followers(.:format) users#followers
+  # フォロワー一覧表示
+  def followers
+    # 表示に必要なインスタンス変数を設定して
+    @title = "Followers"
+    @user  = User.find(params[:id])
+    @users = @user.followers.paginate(page: params[:page])
+    # /sample_app/app/views/users/show_follow.html.erb
+    # レイアウトで表示
+    render 'show_follow'
   end
   
   private
