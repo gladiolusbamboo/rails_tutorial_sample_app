@@ -1,0 +1,8 @@
+<%# <xxx id="follow_form"></xxx> %>
+<%# の中身のhtmlをパーシャルで更新する %>
+<%# （ボタンをアンフォローに更新する） %>
+$("#follow_form").html("<%= escape_javascript(render('users/unfollow')) %>");
+<%# <xxx id="followers"></xxx> %>
+<%# の中身を更新する %>
+<%# （フォロワー数を更新する） %>
+$("#followers").html('<%= @user.followers.count %>');

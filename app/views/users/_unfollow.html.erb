@@ -10,7 +10,17 @@
 %>
 <%# @userは現在表示しているユーザー %>
 <%# DELETEリクエストを送信する %>
+<%# remote: true でAjaxに対応させる %>
+<%#
+<form class="edit_relationship" id="edit_relationship_89" action="/relationships/89" accept-charset="UTF-8" data-remote="true" method="post">
+  <input name="utf8" type="hidden" value="✓">
+  <input type="hidden" name="_method" value="delete">
+  <input type="hidden" name="authenticity_token" value="XXXXXXXXXX==">
+  <input type="submit" name="commit" value="Unfollow" class="btn" data-disable-with="Unfollow">
+</form>
+%>
 <%= form_for(current_user.active_relationships.find_by(followed_id: @user.id),
-             html: { method: :delete }) do |f| %>
+             html: { method: :delete },
+             remote: true) do |f| %>
   <%= f.submit "Unfollow", class: "btn" %>
 <% end %>
